@@ -35,10 +35,10 @@ public class ServiceTodoImpl implements ServiceTodo{
 	@Transactional
 	public String postTodo(PostRequestBodyTodo rqt) {
 		try {
-			Todo exist = entityManager.find(Todo.class, new TodoPK(rqt.getUser(), rqt.getId()));
+			Todo exist = entityManager.find(Todo.class, rqt.getId());
 					//repositoryTodo.findByPK(new TodoPK(rqt.getUser(), rqt.getId()));
 			if(exist==null) {
-				Todo insertTodo = new Todo(rqt.getUser(),rqt.getId(),rqt.getText(),false);
+				Todo insertTodo = new Todo(rqt.getId(),rqt.getText(),false);
 				//repositoryTodo.save(insertTodo);
 				entityManager.persist(insertTodo);
 			}else {
@@ -55,7 +55,7 @@ public class ServiceTodoImpl implements ServiceTodo{
 	@Transactional
 	public String deleteTodo(DeleteRequestBodyTodo rqt) {
 		try {
-			Todo exist = entityManager.find(Todo.class, new TodoPK(rqt.getUser(), rqt.getId()));
+			Todo exist = entityManager.find(Todo.class, rqt.getId());
 			if(exist != null) {
 				entityManager.remove(exist);
 			}else {

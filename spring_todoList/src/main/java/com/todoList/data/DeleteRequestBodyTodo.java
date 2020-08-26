@@ -9,6 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteRequestBodyTodo {
-	private String user;
 	private int id;
 }

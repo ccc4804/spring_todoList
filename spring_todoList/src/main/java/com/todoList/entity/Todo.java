@@ -7,6 +7,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
@@ -20,10 +21,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@IdClass(TodoPK.class)
+//@IdClass(TodoPK.class)
+@Table(name = "TODOS")
 public class Todo implements Serializable {
-	@Id
-	private String user;
+//	@Id
+//	private String user;
 	@Id
 	private int id;
 	@NotNull
