@@ -21,8 +21,8 @@ import com.todoList.repository.RepositoryTodo;
 public class ServiceTodoImpl implements ServiceTodo{
 	@Autowired
 	RepositoryTodo repositoryTodo;
-	@Autowired
-	EntityManager entityManager;	
+//	@Autowired
+//	EntityManager entityManager;	
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -40,18 +40,19 @@ public class ServiceTodoImpl implements ServiceTodo{
 	}
 	
 	@Override
-	@Transactional
 	public String postTodo(PostRequestBodyTodo rqt) {
 		try {
-			//Todos exist = repositoryTodo.findByPK(new TodoPK(rqt.getUser(), rqt.getId()));
-			if(entityManager.find(Todos.class, rqt.getId()) == null) {
-				Todos insertTodo = new Todos(rqt.getId(),rqt.getText(),false);
-				repositoryTodo.save(insertTodo);
-				//entityManager.persist(insertTodo);
-			}else {
-				logger.error("Todo is exist!");
-				throw new Exception("Todo is exist!");
-			}
+//			Todos exist = repositoryTodo.findByPK(new TodoPK(rqt.getUser(), rqt.getId()));
+//			if(entityManager.find(Todos.class, rqt.getId()) == null) {
+//				Todos insertTodo = new Todos(rqt.getId(),rqt.getText(),false);
+//				repositoryTodo.save(insertTodo);
+//				//entityManager.persist(insertTodo);
+//			}else {
+//				logger.error("Todo is exist!");
+//				throw new Exception("Todo is exist!");
+//			}
+			Todos insertTodo = new Todos(rqt.getId(),rqt.getText(),false);
+			repositoryTodo.save(insertTodo);
 		}catch (Exception e) {
 			logger.error("error: " + e.toString());
 			return "error: " + e.toString();
@@ -61,16 +62,22 @@ public class ServiceTodoImpl implements ServiceTodo{
 	}
 
 	@Override
-	@Transactional
 	public String deleteTodo(DeleteRequestBodyTodo rqt) {
 		try {
-			Todos exist = entityManager.find(Todos.class, rqt.getId());
-			if(exist != null) {
-				entityManager.remove(exist);
+//			Todos exist = entityManager.find(Todos.class, rqt.getId());
+//			if(exist != null) {
+//				entityManager.remove(exist);
+//			}else {
+//				logger.error("Todo is exist!");
+//				throw new Exception("Todo is not exist!");
+//			}			
+			Todos removeTodo = repositoryTodo.getById(rqt.getId());
+			if(removeTodo != null) {
+				repositoryTodo.delete(removeTodo);
 			}else {
 				logger.error("Todo is exist!");
 				throw new Exception("Todo is not exist!");
-			}
+			}	
 		}catch (Exception e) {
 			logger.error("error: " + e.toString());
 			return "error: " + e.toString();

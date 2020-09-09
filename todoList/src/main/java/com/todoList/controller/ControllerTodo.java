@@ -37,22 +37,10 @@ public class ControllerTodo {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	EntityManager entityManager;
-	@Autowired
-	RepositoryTodo repositoryTodo;
-
 	@GetMapping(value = "/list")
 	public Object getList() {
-		getAccessIp();
+		//getAccessIp();
 		// return gson.toJson(serviceTodo.getTodo());
-		List<Todos> todoList;
-
-		todoList = repositoryTodo.findAll();
-		
-		Map<String, List<Todos>> response = new HashMap<>();
-		response.put("data", todoList);
-		logger.info("response" + response.toString());
 
 		return serviceTodo.getTodo();
 	}
@@ -69,14 +57,14 @@ public class ControllerTodo {
 		return serviceTodo.deleteTodo(rqt);
 	}
 
-	public void getAccessIp() {
-		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-				.getRequest();
-		String accessIp = req.getHeader("X-FORWARDED-FOR");
-		if (accessIp == null) {
-			accessIp = req.getRemoteAddr();
-		}
-
-		logger.info("server access ip : " + accessIp);
-	}
+//	public void getAccessIp() {
+//		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+//				.getRequest();
+//		String accessIp = req.getHeader("X-FORWARDED-FOR");
+//		if (accessIp == null) {
+//			accessIp = req.getRemoteAddr();
+//		}
+//
+//		logger.info("server access ip : " + accessIp);
+//	}
 }
