@@ -43,9 +43,8 @@ public class ServiceTodoImpl implements ServiceTodo{
 	@Transactional
 	public String postTodo(PostRequestBodyTodo rqt) {
 		try {
-			Todos exist = entityManager.find(Todos.class, rqt.getId());
-					//repositoryTodo.findByPK(new TodoPK(rqt.getUser(), rqt.getId()));
-			if(exist==null) {
+			//Todos exist = repositoryTodo.findByPK(new TodoPK(rqt.getUser(), rqt.getId()));
+			if(entityManager.find(Todos.class, rqt.getId()) == null) {
 				Todos insertTodo = new Todos(rqt.getId(),rqt.getText(),false);
 				repositoryTodo.save(insertTodo);
 				//entityManager.persist(insertTodo);
